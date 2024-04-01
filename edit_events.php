@@ -5,8 +5,12 @@
   <meta charset="UTF-8">
   <meta name="robots" content="noindex">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events</title>
+  <title>Event Editor</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/editor/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/editor/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/editor/favicon-16x16.png">
+  <link rel="manifest" href="/assets/icon/editor/site.webmanifest">
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="assets/css/main.css" rel="preload" as="style" type="text/css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'">
   <style>
@@ -59,7 +63,6 @@
 // Read the JSON data from the file
 $json_data = file_get_contents('events.json');
 
-                   
 // Decode the JSON data
 $events = json_decode($json_data, true);
 
