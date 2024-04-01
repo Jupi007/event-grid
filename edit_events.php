@@ -1,4 +1,4 @@
-<? include('billetsalg_create_json.php'); ?>
+<?php include 'billetsalg_create_json.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,44 +67,44 @@ $json_data = file_get_contents('events.json');
 $events = json_decode($json_data, true);
 
 // Check if JSON decoding was successful
-if ($events !== null) {
+if (null !== $events) {
     foreach ($events as $event) {
         echo '<div class="event-container">';
-        
+
         // Display the image next to the event
         if (!empty($event['custom_image'])) {
             echo '<div class="avatar-preview" style="position: relative;">';
-            echo '<img src="uploads/' . htmlspecialchars($event['custom_image'], ENT_QUOTES, 'UTF-8') . '" title="Custom image" class="event-image">';
-            echo '<span title="Fjern" style="position: absolute; top: -10px; right: 20px; cursor: pointer; color: #b12720;" onclick=""><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 20 20"><script>console.log("' . $event['custom_image'] . '?>");</script>
+            echo '<img src="uploads/'.htmlspecialchars($event['custom_image'], \ENT_QUOTES, 'UTF-8').'" title="Custom image" class="event-image">';
+            echo '<span title="Fjern" style="position: absolute; top: -10px; right: 20px; cursor: pointer; color: #b12720;" data-image-name="'.htmlspecialchars($event['custom_image'], \ENT_QUOTES, 'UTF-8').'" data-event-title="'.htmlspecialchars($event['title'], \ENT_QUOTES, 'UTF-8').'" data-event-date="'.htmlspecialchars($event['date'], \ENT_QUOTES, 'UTF-8').'" class="image-remove"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 20 20"><script>console.log("'.$event['custom_image'].'?>");</script>
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
                 </svg></span>';
             echo '</div>';
         } elseif (!empty($event['image_link'])) {
-            echo '<img src="' . htmlspecialchars($event['image_link'], ENT_QUOTES, 'UTF-8') . '" title="fra Billetsalg" class="event-image">';
+            echo '<img src="'.htmlspecialchars($event['image_link'], \ENT_QUOTES, 'UTF-8').'" title="fra Billetsalg" class="event-image" loading="lazy">';
         }
 
         echo '<div>';
-            echo '<a target="_blank" title="Open eventpage" href="' . htmlspecialchars($event['link'], ENT_QUOTES, 'UTF-8') . '"><h3>' . htmlspecialchars($event['title'], ENT_QUOTES, 'UTF-8') . '</h3></a>';
-        echo '<p class="event-date">' . htmlspecialchars($event['date'], ENT_QUOTES, 'UTF-8') . '</p>';
+        echo '<a target="_blank" title="Open eventpage" href="'.htmlspecialchars($event['link'], \ENT_QUOTES, 'UTF-8').'"><h3>'.htmlspecialchars($event['title'], \ENT_QUOTES, 'UTF-8').'</h3></a>';
+        echo '<p class="event-date">'.htmlspecialchars($event['date'], \ENT_QUOTES, 'UTF-8').'</p>';
 
         // Add text fields for custom title, label, and icon
-        echo '<p><input type="text" class="custom_title" placeholder="Custom title" value="' . htmlspecialchars($event['custom_title'] ?? '', ENT_QUOTES, 'UTF-8') . '"></p>';
-        echo '<input type="text" class="label" placeholder="Label" value="' . htmlspecialchars($event['label'] ?? '', ENT_QUOTES, 'UTF-8') . '">';
-        echo '<input type="text" class="icon" placeholder="Icon" value="' . htmlspecialchars($event['icon'] ?? '', ENT_QUOTES, 'UTF-8') . '">';
+        echo '<p><input type="text" class="custom_title" placeholder="Custom title" value="'.htmlspecialchars($event['custom_title'] ?? '', \ENT_QUOTES, 'UTF-8').'"></p>';
+        echo '<input type="text" class="label" placeholder="Label" value="'.htmlspecialchars($event['label'] ?? '', \ENT_QUOTES, 'UTF-8').'">';
+        echo '<input type="text" class="icon" placeholder="Icon" value="'.htmlspecialchars($event['icon'] ?? '', \ENT_QUOTES, 'UTF-8').'">';
         echo '<a style="padding-left: 8px" target="_blank" href="https://icons.getbootstrap.com/"><i title="Browse icons" class="fa-solid fa-circle-question"></i></a>';
-        
+
         // Add image upload button
         echo '<p>';
-        echo '<label for="image-upload-' . htmlspecialchars($event['title'], ENT_QUOTES, 'UTF-8') . '-' . htmlspecialchars($event['date'], ENT_QUOTES, 'UTF-8') . '">Upload Image:</label>';
-        echo '<input type="file" class="image-upload" id="image-upload-' . htmlspecialchars($event['title'], ENT_QUOTES, 'UTF-8') . '-' . htmlspecialchars($event['date'], ENT_QUOTES, 'UTF-8') . '" data-event-title="' . htmlspecialchars($event['title'], ENT_QUOTES, 'UTF-8') . '" data-event-date="' . htmlspecialchars($event['date'], ENT_QUOTES, 'UTF-8') . '" accept="image/*">';
+        echo '<label for="image-upload-'.htmlspecialchars($event['title'], \ENT_QUOTES, 'UTF-8').'-'.htmlspecialchars($event['date'], \ENT_QUOTES, 'UTF-8').'">Upload Image:</label>';
+        echo '<input type="file" class="image-upload" id="image-upload-'.htmlspecialchars($event['title'], \ENT_QUOTES, 'UTF-8').'-'.htmlspecialchars($event['date'], \ENT_QUOTES, 'UTF-8').'" data-event-title="'.htmlspecialchars($event['title'], \ENT_QUOTES, 'UTF-8').'" data-event-date="'.htmlspecialchars($event['date'], \ENT_QUOTES, 'UTF-8').'" accept="image/*">';
         echo '</p>';
 
         // Add checkbox with label for sold-out status
         echo '<p>';
-        echo '<label for="sold-out-' . htmlspecialchars($event['title'], ENT_QUOTES, 'UTF-8') . '-' . htmlspecialchars($event['date'], ENT_QUOTES, 'UTF-8') . '">Sold Out:</label>';
-        echo '<input type="checkbox" class="sold-out-checkbox" id="sold-out-' . htmlspecialchars($event['title'], ENT_QUOTES, 'UTF-8') . '-' . htmlspecialchars($event['date'], ENT_QUOTES, 'UTF-8') . '" data-event-title="' . htmlspecialchars($event['title'], ENT_QUOTES, 'UTF-8') . '" data-event-date="' . htmlspecialchars($event['date'], ENT_QUOTES, 'UTF-8') . '"' . ($event['sold_out'] ? ' checked' : '') . '>';
+        echo '<label for="sold-out-'.htmlspecialchars($event['title'], \ENT_QUOTES, 'UTF-8').'-'.htmlspecialchars($event['date'], \ENT_QUOTES, 'UTF-8').'">Sold Out:</label>';
+        echo '<input type="checkbox" class="sold-out-checkbox" id="sold-out-'.htmlspecialchars($event['title'], \ENT_QUOTES, 'UTF-8').'-'.htmlspecialchars($event['date'], \ENT_QUOTES, 'UTF-8').'" data-event-title="'.htmlspecialchars($event['title'], \ENT_QUOTES, 'UTF-8').'" data-event-date="'.htmlspecialchars($event['date'], \ENT_QUOTES, 'UTF-8').'"'.($event['sold_out'] ? ' checked' : '').'>';
         echo '</p>';
-        
+
         echo '</div>'; // Close the inner div
         echo '</div>'; // Close the event-container div
     }
@@ -232,6 +232,55 @@ $(document).ready(function() {
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('File upload error: ' + textStatus + ' - ' + errorThrown);
+            }
+        });
+    });
+
+    // Handle file removing (second AJAX request)
+    $('.image-remove').click(function(event) {
+        // Prevent the click event from bubbling up to the save button
+        event.stopPropagation();
+
+        var fileData = new FormData();
+        var imageName = $(this).data('imageName');
+        var eventTitle = $(this).data('eventTitle');
+        var eventDate = $(this).data('eventDate');
+        fileData.append('imageName', imageName);
+
+        $.ajax({
+            url: 'remove-image.php',
+            method: 'POST',
+            data: fileData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                var updatedEvent = {
+                    title: eventTitle,
+                    date: eventDate,
+                    custom_image: '',
+                };
+
+                // Send the updated event data  (third AJAX request)
+                $.ajax({
+                    url: 'update_events.php',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify([updatedEvent]),
+                    success: function(response) {
+                        if (response === 'success') {
+                            console.log('Image removed and JSON updated successfully.');
+                            window.location.reload();
+                        } else {
+                            console.error('Error updating JSON: ' + response);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('AJAX Error: ' + textStatus + ' - ' + errorThrown);
+                    }
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('File remove error: ' + textStatus + ' - ' + errorThrown);
             }
         });
     });
